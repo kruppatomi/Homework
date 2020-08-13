@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Filereader {
+public class FileReader {
 
     private List<String> result = new ArrayList<>();
 
-    public Filereader(final File folder){
+    public FileReader(final File folder){
         listFilesFromFolder(folder);
     }
 
