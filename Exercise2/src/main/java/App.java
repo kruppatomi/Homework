@@ -4,9 +4,9 @@ public class App {
     public static void main(String[] args){
         ColumnsManager columnsManager = new ColumnsManager();
 
-        Filereader filereader = new Filereader();
-        final File folder = new File("your folder path");
+        final File folder = new File("C:/Users/Kruppa/Desktop/Testfolder");
+        Filereader filereader = new Filereader(folder);
+        filereader.getLines();
 
-        filereader.listFilesForFolder(folder);
     }
 }
