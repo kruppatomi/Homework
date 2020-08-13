@@ -20,11 +20,11 @@ public class Database {
     public static String getTableCreationTime(String query){
         try{
             //Open a connection
-            System.out.println("Connecting to database...");
+            //System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             //Execute a query
-            System.out.println("Creating statement...");
+            //System.out.println("Creating statement...");
             stmt = ((Connection) conn).createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.next();
@@ -52,19 +52,18 @@ public class Database {
         Map<String, String> columns = new HashMap<String, String>();
         try{
             //Open a connection
-            System.out.println("Connecting to database...");
+            //System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             //Execute a query
-            System.out.println("Creating statement...");
+            //System.out.println("Creating statement...");
             stmt = ((Connection) conn).createStatement();
             ResultSet rs = stmt.executeQuery(query);
+
             while(rs.next()){
                 //get creation time
                 columns.put(rs.getString("column_name"), rs.getObject("data_type").toString());
             }
-
-
             //Clean-up environment
             stmt.close();
             conn.close();
