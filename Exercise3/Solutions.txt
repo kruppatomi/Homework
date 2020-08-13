@@ -1,0 +1,19 @@
+1) Melyik a 4. legtöbb felvételt készítő gép?
+SQL válasz:
+
+SELECT d.id,
+       d.name,
+       COUNT(s.ae_key) AS studies
+FROM device AS d
+    INNER JOIN study AS s
+            ON s.ae_key = d.id
+GROUP BY d.id
+ORDER BY Studies DESC
+LIMIT 1
+OFFSET 3;
+
+Szöveges válasz: A 121-es id-jú, Brilliance 40 (MPPS) nevű gép. (998 felvétel)
+
+2) Melyik volt a legzsúfoltabb nap, azaz melyik nap történt a legtöbb felvétel?
+
+
