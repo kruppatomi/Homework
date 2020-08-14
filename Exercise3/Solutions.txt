@@ -15,5 +15,16 @@ OFFSET 3;
 Szöveges válasz: A 121-es id-jú, Brilliance 40 (MPPS) nevű gép. (998 felvétel)
 
 2) Melyik volt a legzsúfoltabb nap, azaz melyik nap történt a legtöbb felvétel?
+SQL válasz:
+
+SELECT DATE(study_datetime) AS study_day,
+       COUNT(study_datetime) AS number_of_studies
+FROM study
+GROUP BY study_day
+ORDER BY  number_of_studies DESC
+LIMIT 1;
+
+Szöveges válasz: 2013.07.06-án készült a legtöbb felvétel. (206 db)
+
 
 
