@@ -1,0 +1,92 @@
+1) Melyik a 4. legtöbb felvételt készítő gép?
+SQL válasz:
+
+SELECT d.id,
+       d.name,
+       COUNT(s.ae_key) AS studies
+FROM device AS d
+    INNER JOIN study AS s
+            ON s.ae_key = d.id
+GROUP BY d.id
+ORDER BY Studies DESC
+LIMIT 1
+OFFSET 3;
+
+Szöveges válasz: A 121-es id-jú, Brilliance 40 (MPPS) nevű gép. (998 felvétel)
+
+
+
+2) Melyik volt a legzsúfoltabb nap, azaz melyik nap történt a legtöbb felvétel?
+SQL válasz:
+
+SELECT DATE(study_datetime) AS study_day,
+       COUNT(study_datetime) AS number_of_studies
+FROM study
+GROUP BY study_day
+ORDER BY  number_of_studies DESC
+LIMIT 1;
+
+Szöveges válasz: 2013.07.06-án készült a legtöbb felvétel. (206 db)
+
+
+
+3) Mennyi volt az átlagos képkészítési idő (series_duration) képtípusonként (series_type)?
+SQL válasz:
+
+SELECT series_type,
+       AVG(series_duration) AS average_duration
+FROM serie
+GROUP BY  series_type;
+
+Szöveges válasz:
+
+Cine		0.5807095940594059
+Constant angle	7.290831495985445
+Sequenced	2.3542228033473265
+SmartPrep	1.3424769736766555
+Spiral		9.80681217611624
+Stationary	4.148849596133854
+Undefined	12.703893328307583
+
+
+
+4) Melyik adattípusnak (data_type) a legmagasabb a diagnosztikai eredményessége (legnagyobb arányú a diagnostic=Y értéke)?
+SQL válasz:
+
+WITH table_y AS (SELECT COUNT(se.diagnostic) AS y_count,
+                        d.data_type AS data
+                 FROM study AS st
+                          INNER JOIN serie AS se
+                                     ON st.id = se.study_key
+                          INNER JOIN device AS d
+                                     ON d.id = st.ae_key
+                 WHERE se.diagnostic = 'Y'
+                 GROUP BY d.data_type),
+     table_n AS (SELECT COUNT(se.diagnostic) AS n_count,
+                        d.data_type AS data
+                 FROM study AS st
+                          INNER JOIN serie AS se
+                                     ON st.id = se.study_key
+                          INNER JOIN device AS d
+                                     ON d.id = st.ae_key
+                 WHERE se.diagnostic = 'N'
+                 GROUP BY d.data_type)
+SELECT y_count,
+       n_count,
+       CONCAT((y_count / (y_count + n_count)*100), '%') AS success_percentage,
+       table_y.data
+FROM table_y
+         JOIN table_n
+              ON table_y.data = table_n.data
+ORDER BY  success_percentage DESC
+LIMIT 1;
+
+Szöveges válasz: AZ MPPS adattípusnak a legmagasabb a diagnosztikai eredményessége.
+
+
+Változtatás a táblákon a gyorsabb végrehajtás érdekében:
+
+-study.ae_key column létrehozása a serie táblában
+-indexek létrehozása (nem túl sok hogy az új adatok beillesztése se legyen nagyon idő igényes)
+	-serie táblában series_typle ra index
+	-study táblában study_datetime ra index
