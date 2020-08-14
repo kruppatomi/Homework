@@ -11,5 +11,5 @@
 ##### Exercise 3:
 * solutions are in the Solutions.txt
 ##### Extra:
-* there are some issues while running
+* there are some issues while running, and i had to modify the exam_datetime column's data type from datetime to varchar.
 
