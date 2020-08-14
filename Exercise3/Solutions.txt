@@ -82,3 +82,11 @@ ORDER BY  success_percentage DESC
 LIMIT 1;
 
 Szöveges válasz: AZ MPPS adattípusnak a legmagasabb a diagnosztikai eredményessége.
+
+
+Változtatás a táblákon a gyorsabb végrehajtás érdekében:
+
+-study.ae_key column létrehozása a serie táblában
+-indexek létrehozása (nem túl sok hogy az új adatok beillesztése se legyen nagyon idő igényes)
+	-serie táblában series_typle ra index
+	-study táblában study_datetime ra index
