@@ -10,4 +10,6 @@
 * run App.java
 ##### Exercise 3:
 * solutions are in the Solutions.txt
+##### Extra:
+* there are some issues while running
 
