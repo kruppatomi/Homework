@@ -1,0 +1,21 @@
+INSERT INTO dwh.study (id,modality,study_datetime,ae_key) VALUES 
+(192,'CT','2013-07-24 11:28:42.000',123)
+,(193,'CT','2013-07-24 11:09:59.000',123)
+,(194,'CT','2013-07-24 10:48:32.000',123)
+,(195,'CT','2013-07-24 10:26:37.000',123)
+,(196,'CT','2013-07-01 11:44:15.000',96)
+,(197,'CT','2013-01-23 23:09:38.000',102)
+,(198,'CT','2013-07-01 11:59:39.000',96)
+,(200,'CT','2013-09-23 12:30:28.000',110)
+,(201,'CT','2013-04-15 13:35:20.000',101)
+,(202,'CT','2013-10-02 14:44:57.000',147)
+;
+ALTER TABLE clients
+MODIFY active enum('yes','no');
+ALTER TABLE people
+DROP people_type;
+ALTER TABLE clientsdw01
+DROP client_type;
+ALTER TABLE Dogs
+DROP dog_type
+;
