@@ -26,5 +26,21 @@ LIMIT 1;
 
 Szöveges válasz: 2013.07.06-án készült a legtöbb felvétel. (206 db)
 
+3) Mennyi volt az átlagos képkészítési idő (series_duration) képtípusonként (series_type)?
+SQL válasz:
 
+SELECT series_type,
+       AVG(series_duration) AS average_duration
+FROM serie
+GROUP BY  series_type;
+
+Szöveges válasz:
+
+Cine		0.5807095940594059
+Constant angle	7.290831495985445
+Sequenced	2.3542228033473265
+SmartPrep	1.3424769736766555
+Spiral		9.80681217611624
+Stationary	4.148849596133854
+Undefined	12.703893328307583
 
