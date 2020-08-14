@@ -1,0 +1,28 @@
+DROP PROCEDURE IF EXISTS createPatientScedule;
+
+DELIMITER ;
+
+CREATE PROCEDURE createPatientScedule(days INT)
+BEGIN
+    DECLARE hours INT DEFAULT 13;
+    DECLARE patient_per_hour INT DEFAULT FLOOR(0 + (RAND() * 4));
+    DECLARE next_patients_time INT DEFAULT 0;
+    DECLARE days_counter INT DEFAULT days;
+
+    WHILE (days > 0) DO
+            WHILE (hours > 0) DO
+                WHILE (next_patients_time < 60-(60/patient_per_hour)) DO
+                    INSERT INTO scheduled_patient (first_name, last_name, exam_datetime)
+                    VALUES (ELT(0.5 + RAND() * 6, 'Balázs', 'Eszter', 'Péter', 'Anna', 'Gergő', 'Marcell'),
+                            ELT(0.5 + RAND() * 6, 'Kiss', 'Nagy', 'Lakatos', 'Szabó', 'Tóth', 'Kovács'),
+                            CONCAT(CONCAT(hours, ':'), next_patients_time));
+                        SET next_patients_time = next_patients_time + (60/patient_per_hour);
+                    END WHILE;
+                SET hours = hours-1;
+                SET patient_per_hour = FLOOR(0 + (RAND() * 4));
+            END WHILE;
+            SET days_counter = days_counter-1;
+        END WHILE;
+END;
+
+CALL createPatientScedule();
